@@ -1,73 +1,77 @@
 package com.rasentycours.bibliotheque;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Scanner;
+import java.util.UUID;
+
+import com.rasentycours.bibliotheque.model.entities.Category;
 
 public class App {
+    private static List<Category> categories = new ArrayList<>();
+
     public static void main(String[] args) {
-        System.out.println();
-        List<Integer> maList = new ArrayList<>();
+        int choice = 0;
+        do {
+            menu();
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1 -> addCategory();
+                case 8 -> showCategories();
+            }
+        } while (choice <= 0 || choice <= 10);
+    }
 
-        maList.add(19);
-        maList.add(1);
-        maList.add(9);
-        maList.add(90);
-        maList.add(8);
-        maList.forEach(e -> System.out.print(e + ", "));
+    public static void menu() {
+        System.out.println("Bienvenue dans votre bibliotheque");
 
-        System.out.println();
+        System.out.println("1   - Ajouter une category");
+        System.out.println("2   - Ajouter un livre");
+        System.out.println("3   - Ajouter un auteur");
+        System.out.println("4   - Ajouter un Lecteur");
+        System.out.println("5   - Ajouter un type d'abonnement");
+        System.out.println("6   - Ajouter un emprunt");
+        System.out.println("7   - Afficher les livres");
+        System.out.println("8   - Afficher les Categories");
+        System.out.println("9   - Afficher les Lecteurs");
+        System.out.println("10  - Afficher les Auteurs");
+        System.out.print("Faites un choix : ");
+    }
 
-        int somme = maList.stream().reduce((a, b) -> a + b).get();
+    public static void addCategory() {
+        System.out.println("_______________________________");
+        String choice = "N";
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Donnez le nom de la categorie : ");
+            String nom = scanner.next();
+            System.out.println("Donner la description : ");
+            String description = scanner.next();
 
-        System.out.println(somme);
+            Category category = Category.builder()
+                    .id(UUID.randomUUID().getMostSignificantBits())
+                    .name(nom)
+                    .description(description)
+                    .build();
 
-        List<Integer> list = new LinkedList<>();
-        list.add(34);
-        list.add(69);
-        Integer[] integers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            categories.add(category);
+            System.out.println("AJouter une nouvelle categorie Y/N : ");
+            Scanner scanner2 = new Scanner(System.in);
+            choice = scanner2.next();
 
-        list.addAll(Arrays.asList(integers));
+        } while (choice.equals("Y") | choice.equals("y"));
 
-        for (Integer i : list) {
-            System.out.print(i + ", ");
-        }
+    }
 
-        Set<Integer> nombres = new LinkedHashSet<>();
-
-        nombres.add(1);
-        nombres.add(3);
-        nombres.add(2);
-        nombres.add(1);
-        nombres.add(1);
-
-        nombres.forEach(System.out::print);
-        System.out.println();
-
-        Map<String, Integer> map = new HashMap<>();
-
-        map.put("age", 59);
-
-        Map<String, List<Integer>> intMap = new HashMap<>();
-
-        intMap.put("nombre paire", List.of(2, 4, 6, 8, 10));
-        intMap.put("nombre impaire", List.of(1, 3, 5, 7, 9));
-
-        intMap.forEach((cle, valeur) -> {
-            System.out.print(" Cle : " + cle);
-            valeur.forEach(e -> System.out.print(" " + e + ", "));
-            System.out.println();
+    public static void showCategories() {
+        System.out.println("List des categories");
+        categories.forEach(category -> {
+            System.out.println("ID : " + category.getId());
+            System.out.println("Nom : " + category.getName());
+            System.out.println("Description : " + category.getDescription());
+            System.out.println("_____________________________________________");
         });
 
-        for (List<Integer> valeur : intMap.values()) {
-
-            valeur.forEach(System.out::print);
-            ;
-        }
     }
 }
