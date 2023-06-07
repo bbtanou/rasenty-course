@@ -21,7 +21,11 @@ public class Category {
         }
         Category category = (Category) o;
 
-        return name.equals(category.getName());
+        if (category.id.equals(id)) {
+            return true;
+        }
+
+        return name.equals(category.name) || id.equals(category.id);
     }
 
 }
