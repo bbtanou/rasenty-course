@@ -27,7 +27,7 @@ public class Book {
             return true;
         }
         Book book = (Book) o;
-        if (book.getTitle().equals(this.title)) {
+        if (book.getId().equals(this.id)) {
             return true;
         }
 

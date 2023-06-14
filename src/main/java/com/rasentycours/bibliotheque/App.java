@@ -9,6 +9,14 @@ public class App {
     public static void main(String[] args) {
         BookService bookService = new BookService();
         bookService.addBook();
+        bookService.addBook();
+        bookService.addBook();
+        bookService.showBooks();
+        //
+        bookService.findBook();
+        //
+        bookService.updateBook();
+        bookService.showBooks();
         /*
          * CategoryService service = new CategoryService();
          * service.addCategory();
