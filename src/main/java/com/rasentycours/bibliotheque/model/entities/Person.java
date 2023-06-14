@@ -1,9 +1,6 @@
 package com.rasentycours.bibliotheque.model.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-
 import lombok.ToString;
 
 @Data
@@ -13,4 +10,19 @@ public class Person {
     private String name;
     private String email;
     private String telephone;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Person) {
+            return true;
+        }
+        Person person = (Person) o;
+
+        if (person.id.equals(this.id)) {
+            return true;
+        }
+
+        return false;
+        // return person.id.equals(this.id);
+    }
 }
